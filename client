@@ -1,0 +1,633 @@
+local tArgs = { ... }
+if #tArgs < 1 then
+	print("Usage: trans <id>")
+	return 
+end
+
+local function getContent()
+	local httpHand = http.get( "http://127.0.0.1:"..tArgs[1].."/|0||.html")
+	if httpHand == nil then 
+		return nil
+		
+	end
+	local str = httpHand.readAll()
+	httpHand.close()
+	return str
+end
+local function postContent(str)
+	local httpHand = http.get( "http://127.0.0.1:"..tArgs[1].."/|".."1".."|"..str.."|.html")
+	if httpHand == nil then
+		return nil
+	end
+	httpHand.close()
+	return "ok"
+end
+local function Split(str, split_char)
+    local sub_str_tab = {};
+    while (true) do
+        local pos = string.find(str, split_char);
+        if (not pos) then
+            sub_str_tab[#sub_str_tab + 1] = str;
+            break;
+        end
+        local sub_str = string.sub(str, 1, pos - 1);
+        sub_str_tab[#sub_str_tab + 1] = sub_str;
+        str = string.sub(str, pos + 1, #str);
+    end
+
+    return sub_str_tab;
+end
+
+--================================================
+local function turtle_craft(str)
+	local re = turtle.craft(tonumber(str))
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_forward()
+	local re = turtle.forward()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_refuel()
+	local re = turtle.refuel()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_refuel(num)
+	local re = turtle.refuel(tonumber(num))
+	
+		if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_back()
+	local re =turtle.back()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_up()
+	local re = turtle.up()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_down()
+	local re = turtle.down()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_turnLeft()
+	local re = turtle.turnLeft()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_turnRight()
+	local re =turtle.turnRight()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_select(num)
+	local re = turtle.select(tonumber(num))
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_getSelectedSlot()
+	local re = turtle.getSelectedSlot()
+	
+	postContent(tostring(re))
+end
+local function turtle_getItemCount(num)
+	local re = turtle.getItemCount(tonumber(num))
+	
+	postContent(tostring(re))
+end
+local function turtle_getItemCount()
+	local re = turtle.getItemCount()
+	
+	postContent(tostring(re))
+end
+local function turtle_getItemSpace(num)
+	local re = turtle.getItemSpace(tonumber(num))
+	
+	postContent(tostring(re))
+end
+local function turtle_getItemSpace()
+	local re = turtle.getItemSpace()
+	
+	postContent(tostring(re))
+end
+local function turtle_getItemDetail(num)
+	local re = turtle.getItemDetail(tonumber(num))
+	
+	if re == nil then
+		postContent("")
+	else
+		postContent(re.name.."|"..tostring(re.damage).."|"..tostring(re.count))
+	end
+end
+local function turtle_getItemDetail()
+	local re = turtle.getItemDetail()
+	
+	if re == nil then
+		postContent("")
+	else
+		postContent(re.name.."|"..tostring(re.damage).."|"..tostring(re.count))
+	end
+end
+local function turtle_equipLeft()
+	local re = turtle.equipLeft()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_equipRight()
+	
+	local re = turtle.equipRight()
+	if re == true then
+		print("b")
+		postContent("true")
+	else
+		print("c")
+		postContent("false")
+	end
+end
+local function turtle_attack()
+	local re = turtle.attack()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_attackUp()
+	local re = turtle.attackUp()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_attackDown()
+	local re =turtle.attackDown()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_dig()
+	local re = turtle.dig()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_digUp()
+	local re = turtle.digUp()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_digDown()
+	local re = turtle.digDown()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_place()
+	local re = turtle.place()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_place(signText)
+	local re = turtle.place(signText)
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_placeUp()
+	local re = turtle.placeUp()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_placeDown()
+	local re = turtle.placeDown()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_detect()
+	local re = turtle.detect()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_detectUp()
+	local re = turtle.detectUp()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_detectDown()
+	local re = turtle.detectDown()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_inspect()
+	local re1,re2 =turtle.inspect()
+	
+	if re1 == true then
+		postContent("true|"..re2.name.."|"..tostring(re2.metadata))
+	else
+		postContent("false")
+	end
+end
+local function turtle_inspectUp()
+	local re1,re2 =turtle.inspectUp()
+	
+	if re1 == true then
+		postContent("true|"..re2.name.."|"..tostring(re2.metadata))
+	else
+		postContent("false")
+	end
+end
+local function turtle_inspectDown()
+	local re1,re2 =turtle.inspectDown()
+	
+	if re1 == true then
+		postContent("true|"..re2.name.."|"..tostring(re2.metadata))
+	else
+		postContent("false")
+	end
+end
+local function turtle_compare()
+	local re = turtle.compare()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_compareUp()
+	local re = turtle.compareUp()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_compareDown()
+	local re = turtle.compareDown()
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_compareTo(num)
+	local re =turtle.compareTo(tonumber(num))
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_drop(num)
+	local re = turtle.drop(tonumber(num))
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_dropUp(num)
+	local re = turtle.dropUp(tonumber(num))
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_dropDown(num)
+	local re = turtle.dropDown(tonumber(num))
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_suck(num)
+	local re =turtle.suck(tonumber(num))
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_suckUp(num)
+	local re =turtle.suck(tonumber(num))
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_suckDown(num)
+	local re =turtle.suck(tonumber(num))
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_getFuelLevel()
+	local re = turtle.getFuelLevel()
+	
+	postContent(tostring(re))
+end
+local function turtle_getFuelLimit()
+	local re = turtle.getFuelLimit()
+	
+	postContent(tostring(re))
+end
+local function turtle_transferTo(num)
+	local re = turtle.transferTo(tonumber(num))
+	
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+local function turtle_transferTo(numSlot,numQuantity)
+	local re = turtle.transferTo(tonumber(numSlot),tonumber(numQuantity))
+		
+	if re == true then
+		postContent("true")
+	else
+		postContent("false")
+	end
+end
+
+
+--================================================
+
+local function turtle_getPostion()
+	local re = gps.locate()
+	
+	if re == nil then
+		postContent("")
+	else
+		local x,y,z = gps.locate()
+		postContent(tostring(x).."|"..tostring(y).."|"..tostring(z))
+	end
+end
+--================================================
+
+local nilNum =0
+while true do
+	--local url_tmp = url +  string.format("%d", index) + ".index"
+	
+	local content = getContent()
+	if content == nil then
+		print("nil:")
+		nilNum = nilNum + 1
+		print(nilNum)
+	else
+		local content1 = Split(content,'|')
+		len = #content1
+	--========================================turtle
+		if content1[1] == "turtle_craft" then
+			turtle_craft(content1[2])
+			print("craft!!!")
+		elseif  content1[1] == "turtle_forward" then
+			turtle_forward()
+			print("i am going forward")
+		elseif content1[1] == "turtle_refuel" then
+			if len == 1 then 
+				turtle_refuel()
+			else
+				turtle_refuel(content1[2])
+			end
+		elseif content1[1] == "turtle_back" then
+			turtle_back()
+		elseif content1[1] == "turtle_up" then
+			turtle_up()
+		elseif content1[1] == "turtle_down" then
+			turtle_down()
+		elseif content1[1] == "turtle_turnLeft" then
+			turtle_turnLeft()
+		elseif content1[1] == "turtle_turnRight" then
+			turtle_turnRight()
+		elseif content1[1] == "turtle_select" then
+			turtle_select(content1[2])
+		elseif content1[1] == "turtle_getSelectedSlot" then
+			turtle_getSelectedSlot()
+		elseif content1[1] == "turtle_getItemCount" then
+			if len == 1 then 
+				turtle_getItemCount()
+			else
+				turtle_getItemCount(content1[2])
+			end
+		elseif content1[1] == "turtle_getItemSpace" then
+			if len == 1 then
+				turtle_getItemSpace()
+			else
+				turtle_getItemSpace(content1[2])
+			end
+		elseif content1[1] == "turtle_getItemDetail" then
+		    if len == 1 then
+				turtle_getItemDetail()
+			else
+				turtle_getItemDetail(content1[2])
+			end
+		elseif content1[1] =="turtle_equipLeft" then
+			turtle_equipLeft()
+		elseif content1[1] == "turtle_equipRight" then
+			turtle_equipRight()
+		elseif content1[1] == "turtle_attack" then
+			turtle_attack()
+		elseif content1[1] == "turtle_attackUp" then
+			turtle_attackUp()
+		elseif content1[1] == "turtle_attackDown" then 
+			turtle_attackDown()
+		elseif content1[1] == "turtle_dig" then
+			turtle_dig()
+		elseif content1[1] == "turtle_digUp" then 
+			turtle_digUp()
+		elseif content1[1] == "turtle_digDown" then
+			turtle_digDown()
+		elseif content1[1] == "turtle_place" then
+			if len == 1 then
+				turtle_place()
+			else
+				turtle_place(content1[2])
+			end
+		elseif content1[1] == "turtle_placeUp" then
+			turtle_placeUp()
+		elseif content1[1] == "turtle_placeDown" then
+			turtle_placeDown()
+		elseif content1[1] == "turtle_detect" then 
+			turtle_detect()
+		elseif content1[1] == "turtle_detectUp" then
+			turtle_detectUp()
+		elseif content1[1] == "turtle_detectDown" then
+			turtle_detectDown()
+		elseif content1[1] == "turtle_inspect" then
+			turtle_inspect()
+		elseif content1[1] == "turtle_inspectUp" then
+			turtle_inspectUp()
+		elseif content1[1] == "turtle_inspectDown" then
+			turtle_inspectDown()
+		elseif content1[1] == "turtle_compare" then 
+			turtle_compare()
+		elseif content1[1] == "turtle_compareUp" then
+			turtle_compareUp()
+		elseif content1[1] == "turtle_compareDown" then
+			turtle_compareDown()
+		elseif content1[1] == "turtle_compareTo" then
+			turtle_compareTo(content1[2])
+		elseif content1[1] == "turtle_drop" then
+			if len == 1 then
+				turtle_drop()
+			else
+				turtle_drop(content1[2])
+			end
+		elseif content1[1] == "turtle_dropUp" then
+			if len == 1 then
+				turtle_dropUp()
+			else
+				turtle_dropUp(content1[2])
+			end			
+		elseif content1[1] == "turtle_dropDown" then
+			if len == 1 then
+				turtle_dropDown()
+			else
+				turtle_dropDown(content1[2])
+			end		
+		elseif content1[1] == "turtle_suck" then
+			if len == 1 then
+				turtle_suck()
+			else
+				turtle_suck(content1[2])
+			end
+		elseif content1[1] == "turtle_suckUp" then
+			if len == 1 then
+				turtle_suckUp()
+			else
+				turtle_suckUp(content1[2])
+			end	
+		elseif content1[1] == "turtle_suckDown" then
+			if len == 1 then
+				turtle_suckDown()
+			else
+				turtle_suckDown(content1[2])
+			end
+		elseif content1[1] == "turtle_getFuelLevel" then
+			turtle_getFuelLevel()
+		elseif content1[1] == "turtle_getFuelLimit" then 
+			turtle_getFuelLimit()
+		elseif content1[1] == "turtle_transferTo" then
+			if len == 2 then
+				turtle_transferTo(content1[2])
+			else
+				turtle_transferTo(content1[2],content1[3])
+			end
+ --================================================================
+		elseif content1[1] == "turtle_getPostion"then
+			turtle_getPostion()
+		else
+		
+			--return
+		end
+	
+	end
+
+end
+
